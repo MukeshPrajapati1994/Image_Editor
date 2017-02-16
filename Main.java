@@ -110,7 +110,10 @@ public class Main extends JFrame implements ActionListener{
 	  ima.requestFocus();
 	  }
 
-	 
+	////start the ImageBrightness class
+ //The ImageBrightness class represents the interface to allow the user to make the image 
+ //brighter or darker by changing the value of the image slider
+ //The ImageBrightness class is in the Main class 
 	 
 	 public class ImgBrighten extends JFrame implements ChangeListener{
 
@@ -155,7 +158,12 @@ public class Main extends JFrame implements ActionListener{
 		 
 	 }
 
-	//ImageResize class allows to resize the image by resizing width and height of image
+	 ////end of the ImageBrightness class
+
+ ////start the ImageResize class
+ //The ImageResize class represents the interface that allows you to resize the image 
+ //by making changes to its width and height
+ //The ImageResize class is in the Main class
 	 public class ImgResized extends JFrame implements ActionListener {
 	  JPanel panel;
 	  JTextField textWidth;
@@ -189,13 +197,13 @@ public class Main extends JFrame implements ActionListener{
 	  pack();
 	  enableComponents(false);
 	  }
-	  
+	  //This method can be invoked to  enable the text boxes of image width and height
 	  public void enableComponents(boolean enabled){
 	   textWidth.setEnabled(enabled);
 	   textHeight.setEnabled(enabled);
 	   Okbt.setEnabled(enabled);
 	  }
-	  
+	  //This method works when you click the OK button to resize the image
 	  public void actionPerformed(ActionEvent e){
 	   if(e.getSource()==Okbt){
 	    ima.setActionResized(true);     
@@ -204,7 +212,8 @@ public class Main extends JFrame implements ActionListener{
 	    ima.repaint();
 	    }
 	  }
-	  
+	   //Restrict the key presses
+            //Only number, backspace, and delete keys are allowed
 	  public class KeyList extends KeyAdapter{
 	     public void keyTyped(KeyEvent ke){
 	 
@@ -212,7 +221,7 @@ public class Main extends JFrame implements ActionListener{
 	    int intkey=(int)c;
 	    if(!(intkey>=48 && intkey<=57 || intkey==8 || intkey==127))
 	     {
-	     ke.consume();
+	     ke.consume(); //hide the unwanted key
 	  
 	      }  
 	     
@@ -220,6 +229,7 @@ public class Main extends JFrame implements ActionListener{
 	  
 	  } 
 	 }
+	//handling events of sub-menu items on the main program interface
 	 public void actionPerformed(ActionEvent e){
 
 	  JMenuItem source = (JMenuItem)(e.getSource());
@@ -256,7 +266,8 @@ public class Main extends JFrame implements ActionListener{
 	    }
 	     
 	  } 
-	      
+	  //The setImage method has code to open the file dialog so the user can choose
+           //the file to show on the program interface    
 
 	 public void setImage(){
 	  
@@ -270,7 +281,7 @@ public class Main extends JFrame implements ActionListener{
 
 
 
-	 
+	//The enableSaving method defines code to enable or  disable saving sub-menu items 
 	 public void enableSaving(boolean f){
 	  saveas.setEnabled(f);
 	  save.setEnabled(f); 
