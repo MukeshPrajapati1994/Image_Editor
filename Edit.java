@@ -48,43 +48,43 @@ class ImgArea extends Canvas{
 
    
   
-	  addMouseListener(new mousexy());
+	  addMouseListener(new mousexy()); //hanlding mouse event of Canvas class
 	 
-	   addKeyListener(new KeyList()); 
+	   addKeyListener(new KeyList()); //handling key event of the Canvas
 
 	   try{
-	    rb=new Robot(); 
+	    rb=new Robot(); //create Robot object
 	   }catch(AWTException e){}
 
-	   ds=getToolkit().getScreenSize();    
-	   mX=(int)ds.getWidth()/2; 
-	   mY=(int)ds.getHeight()/2;
+	   ds=getToolkit().getScreenSize();  //get the screen size   
+	   mX=(int)ds.getWidth()/2; //half of the screen width
+	   mY=(int)ds.getHeight()/2; //half of the screen height
 	   
 	  }
 	  
 	  public void paint(Graphics g){
-	   Graphics2D g2d=(Graphics2D)g;   
+	   Graphics2D g2d=(Graphics2D)g;   //create Graphics2D object 
 	   if(imgLoad){
 
-		    
+		     //draw the update image
 		    if(actionSlided || actionResized || actionTransparent || actionRotated || drawn ){
 		     x=mX-bufimg.getWidth()/2;
 		     y=mY-bufimg.getHeight()/2;
-		     g2d.translate(x,y);  
-		     g2d.drawImage(bufimg,0,0,null); 
+		     g2d.translate(x,y);  //move to coordinate (x,y)  
+		     g2d.drawImage(bufimg,0,0,null); //draw the image
 		     
 		     }
 	 
-		    else{
+		    else{  //draw the original image
 	     
 	   
 	     x=mX-BufferedImg.getWidth()/2;
 	     y=mY-BufferedImg.getHeight()/2;
 	     g2d.translate(x,y); 
-	     g2d.drawImage(BufferedImg,0,0,null); 
+	     g2d.drawImage(BufferedImg,0,0,null);   //draw image
 	     
 		    }}
-	   g2d.dispose(); 
+	   g2d.dispose();    //clean the Graphic2D object
 	   
 	  }
 
@@ -100,10 +100,11 @@ class ImgArea extends Canvas{
 
 	
 
-	 
+	 //The KList class extends the KeyAdpater class to implement the keyPressed method
+         //to handle the key event of the Canvas
 	  class KeyList extends KeyAdapter{
 	   public void keyPressed(KeyEvent e){
-	    if(e.getKeyCode()==27){ 
+	    if(e.getKeyCode()==27){ //ESC is pressed to stop drawing the text on the image
 	     actionDraw=false;
 	     textToDraw="";
 	     fontName="";
