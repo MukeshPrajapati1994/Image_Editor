@@ -113,28 +113,29 @@ class ImgArea extends Canvas{
 	    }
 	   }
 
-  
+ //Prepare the image so it is ready to display and editable 
   public void prepareImg(String filename){
    
    try{
-  
+   //track the image loading
    mt=new MediaTracker(this);    
    Img=Toolkit.getDefaultToolkit().getImage(filename); 
    mt.addImage(Img,0);
-    mt.waitForID(0); 
-    
+    mt.waitForID(0);
+//get the image width and height   
    int width=Img.getWidth(null);
    int height=Img.getHeight(null);
-   
+   //create buffered image from the image so any change to the image can be made
    BufferedImg=createBufferedImageFromImage(Img,width,height,false);
-   
+   //create the blank buffered image
+   //the update image data is stored in the buffered image   
    bufimg = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);  
    imgLoad=true;
    }catch(Exception e){System.exit(-1);}
   }
 
   
-
+ //The createBufferedImageFromImage method is abled to generate a buffered image from an input image
  public BufferedImage createBufferedImageFromImage(Image image, int width, int height, boolean tran)
    { BufferedImage dest ;
   if(tran) 
@@ -189,14 +190,17 @@ class ImgArea extends Canvas{
  
 }
  
- 
+  //The resizeImage method has code to resize the image
+  //This method is invoked when the user clicks OK button on the image resize window
+  //The image resize window is displayed when you select the Image resize sub-menu item
  public void ImgResize(int w,int h){
    BufferedImage bi=(BufferedImage)createImage(w,h);
    Graphics2D g2d=(Graphics2D)bi.createGraphics();
-   
+    //resize the update image
 
    if(actionSlided || actionTransparent || actionRotated ||drawn)
     g2d.drawImage(bufimg,0,0,w,h,null);
+   //resize the original image
  
    else
     g2d.drawImage(BufferedImg,0,0,w,h,null);
@@ -223,22 +227,23 @@ class ImgArea extends Canvas{
 	   
 	   
 	  }
-	  
+	  //The rotateImage invokes the makeImageRotate method to rotate the image
 	  public void rotateImage(){
 	    BufferedImage bi;
-	    
+	    //rotate update image
 	    if(actionSlided || actionResized || actionTransparent || actionRotated || drawn){
 	     bi=bufimg;     
 	    }
-	     
+	   //rotate the original image   
 	    else{
 	     bi=BufferedImg;
 	    }
 
 	   ImgRotation(bi,bi.getHeight(),bi.getWidth());
 	        
-	    actionRotated=true; 
-	    repaint(); 
+	    actionRotated=true; //set the actionRotated to true to indicate that 
+    //the image is rotated
+	    repaint(); //repaint the update image
 	     
 	   }
  
