@@ -110,125 +110,7 @@ public class Main extends JFrame implements ActionListener{
 	  ima.requestFocus();
 	  }
 
-	////start the ImageBrightness class
- //The ImageBrightness class represents the interface to allow the user to make the image 
- //brighter or darker by changing the value of the image slider
- //The ImageBrightness class is in the Main class 
-	 
-	 public class ImgBrighten extends JFrame implements ChangeListener{
-
-		 JSlider slider;
-		
-		
-		ImgBrighten(){
-			addWindowListener(new WindowAdapter(){
-				public void windowClosing(WindowEvent e){
-					dispose();
-				}
-			});
-			
-			Container cont=getContentPane();
-			slider=new JSlider(-10,10,0);
-			slider.setEnabled(false);
-			slider.addChangeListener(this);
-			cont.add(slider, BorderLayout.CENTER);
-			slider.setEnabled(true);
-			setTitle("Image Brightness");
-			setPreferredSize(new Dimension(300,100));
-			setVisible(true);
-			pack();
-			
-			enabledSlider(false);
-					}
-		public void enabledSlider(boolean enabled){
-			slider.setEnabled(enabled);
-		}
-		
-		public void stateChanged(ChangeEvent e) {
-			ima.setValue(slider.getValue()/10.0f);
-		    ima.setActionSlided(true);   
-		    ima.filterImage();
-		    ima.repaint();
-		    enableSaving(true);
-			
-		}
-		
-		
-		
-		 
-	 }
-
-	 ////end of the ImageBrightness class
-
- ////start the ImageResize class
- //The ImageResize class represents the interface that allows you to resize the image 
- //by making changes to its width and height
- //The ImageResize class is in the Main class
-	 public class ImgResized extends JFrame implements ActionListener {
-	  JPanel panel;
-	  JTextField textWidth;
-	  JTextField textHeight;
-	  JButton Okbt;
-	  ImgResized(){
-	  setTitle("Image resize");
-	  //setDefaultCloseOperation(EXIT_ON_CLOSE);
-	  setPreferredSize(new Dimension(400,100));
-	  
-	  Okbt=new JButton("OK");
-	  Okbt.setBackground(Color.BLACK);
-	  Okbt.setForeground(Color.BLUE);  
-	  Okbt.addActionListener(this);
-
-	  textWidth=new JTextField(4);
-	  textWidth.addKeyListener(new KeyList());
-	  textHeight=new JTextField(4);
-	  textHeight.addKeyListener(new KeyList());
-	  panel=new JPanel();
-	  panel.setLayout(new FlowLayout());
-	  panel.add(new JLabel("Width:"));
-	  panel.add(textWidth);
-	  panel.add(new JLabel("Height:"));
-	  
-	  panel.add(textHeight);
-	  panel.add(Okbt);
-	  panel.setBackground(Color.GRAY);
-	  add(panel, BorderLayout.CENTER);
-	  setVisible(true);
-	  pack();
-	  enableComponents(false);
-	  }
-	  //This method can be invoked to  enable the text boxes of image width and height
-	  public void enableComponents(boolean enabled){
-	   textWidth.setEnabled(enabled);
-	   textHeight.setEnabled(enabled);
-	   Okbt.setEnabled(enabled);
-	  }
-	  //This method works when you click the OK button to resize the image
-	  public void actionPerformed(ActionEvent e){
-	   if(e.getSource()==Okbt){
-	    ima.setActionResized(true);     
-	    ima.ImgResize(Integer.parseInt(textWidth.getText()),Integer.parseInt(textHeight.getText()));
-	    enableSaving(true);
-	    ima.repaint();
-	    }
-	  }
-	   //Restrict the key presses
-            //Only number, backspace, and delete keys are allowed
-	  public class KeyList extends KeyAdapter{
-	     public void keyTyped(KeyEvent ke){
-	 
-	    char c = ke.getKeyChar(); 
-	    int intkey=(int)c;
-	    if(!(intkey>=48 && intkey<=57 || intkey==8 || intkey==127))
-	     {
-	     ke.consume(); //hide the unwanted key
-	  
-	      }  
-	     
-	   }
-	  
-	  } 
-	 }
+	
 	//handling events of sub-menu items on the main program interface
 	 public void actionPerformed(ActionEvent e){
 
@@ -240,21 +122,7 @@ public class Main extends JFrame implements ActionListener{
 	     validate();
 	      
 	     }
-	  else if(source.getText().compareTo("Image brightness")==0)
-	    {
-	     
-	    ImgBrighten ib=new ImgBrighten(); 
-	    if(ImgArea.imgLoad)
-	     ib.enabledSlider(true); 
-	     }
-	     
-	  else if(source.getText().compareTo("Image resize")==0)
-	    {
-	     
-	    ImgResized ir=new ImgResized();
-	    if(ImgArea.imgLoad)
-	     ir.enableComponents(true);  
-	     }
+	 
 	  
 	  else if(source.getText().compareTo("Image rotation")==0)
 	    {
