@@ -149,15 +149,6 @@ class ImgArea extends Canvas{
    }
  
 
- public void filterImage(){
-	 float[] elements={0.0f, 1.0f, 0.0f, -1.0f,e,1.0f,0.0f,0.0f,0.0f};
-	 Kernel kernel=new Kernel(3,3,elements);//create kernel object to encapsulate the elements array
-	 ConvolveOp cop = new ConvolveOp(kernel, ConvolveOp.EDGE_NO_OP, null); //create ConvolveOp to encapsulate the kernel
-	 bufimg= new BufferedImage(BufferedImg.getWidth(),BufferedImg.getHeight(),BufferedImage.TYPE_INT_RGB);
-	 cop.filter(BufferedImg,bufimg); 
-	 
-	  
- }
 
  public void setValue(float value){ 
   e=value;
@@ -190,24 +181,7 @@ class ImgArea extends Canvas{
  
 }
  
-  //The resizeImage method has code to resize the image
-  //This method is invoked when the user clicks OK button on the image resize window
-  //The image resize window is displayed when you select the Image resize sub-menu item
- public void ImgResize(int w,int h){
-   BufferedImage bi=(BufferedImage)createImage(w,h);
-   Graphics2D g2d=(Graphics2D)bi.createGraphics();
-    //resize the update image
 
-   if(actionSlided || actionTransparent || actionRotated ||drawn)
-    g2d.drawImage(bufimg,0,0,w,h,null);
-   //resize the original image
- 
-   else
-    g2d.drawImage(BufferedImg,0,0,w,h,null);
-   bufimg=bi;
-   g2d.dispose();
-  
- }
 
  public void setActionResized(boolean value ){ 
   actionResized=value;
