@@ -1,74 +1,76 @@
- public void makeImageSepia(BufferedImage image,int h,int w)
+ // this method has algorithm for converting image into sepia
+  public void makeImageSepia(BufferedImage image,int height,int width)
   {
-	  for(int y=0;y<h;y++)
+	  for(int y=0;y<height;y++)//outer loop to get each pixel
 	  {
-		  for(int x=0;x<w;x++)
+		  for(int x=0;x<width;x++) //inner loop to get each pixel
 		  {
-			  int p=image.getRGB(x, y);
-			  int a=(p>>24)&0xff;
-			  int r=(p>>16)&0xff;
-			  int g=(p>>8)&0xff;
-			  int b=p&0xff;
+			  int rgbcolor=image.getRGB(x, y);// get the rgb color value
+			  int alpha=(rgbcolor>>24)&0xff; //get the alpha color value
+			  int red=(rgbcolor>>16)&0xff;  // get the red color value
+			  int green=(rgbcolor>>8)&0xff; // get the green color value
+			  int blue=rgbcolor&0xff; //get the blue color value
 			  
-			  int tr=(int)(0.393*r+0.769*g+0.189*b);
-			  int tg=(int)(0.349*r+0.686*g+0.168*b);
-			  int tb=(int)(0.272*r+0.534*g+0.131*b);
-			  if(tr>255)
+			  int new_red=(int)(0.393*red+0.769*green+0.189*blue); //calculate new red color value
+			  int new_green=(int)(0.349*red+0.686*green+0.168*blue); //calculate new green color value
+			  int new_blue=(int)(0.272*red+0.534*green+0.131*blue); //calculate new blue color value
+			  if(new_red>255) // 255 is maximum value for any color
 			  {
-				  r=255;
+				  red=255;
 			  }
 			  else 
-				  r=tr;
-			  if(tg>255)
+				  red=new_red;
+			  if(new_green>255) // 255 is maximum value for any color
 			  {
-				  r=255;
+				  green=255;
 			  }
 			  else 
-				  r=tg;
-			  if(tb>255)
+				  green=new_green;
+			  if(new_blue>255) // 255 is maximum value for any color
 			  {
-				  r=255;
+				  blue=255;
 			  }
 			  else 
-				  r=tb;
-			  p=(a<<24) | (r<<16) |(g<<8) | b;
-			  image.setRGB(x, y, p);
+				  blue=new_blue;
+			  rgbcolor=(alpha<<24) | (red<<16) |(green<<8) | blue; // make new rgb color
+			  image.setRGB(x, y, rgbcolor); // set new rgb color to the image
 			  
 		  }
 		  
 	  }
   }
+  //this method will get the buffer image
   public void convertSepia()
   {
 	  BufferedImage bi;
 	    if(actionSlided || actionResized || actionRotated || drawn){
-	     bi=bufimg;     
+	     bi=bufimg;   //store image in buffered image bi  
 	    }
 	    else{
-	     bi=BufferedImg;
+	     bi=BufferedImg; //store image in buffered image bi 
 	    }
 	    
-	    makeImageSepia(bi,bi.getHeight(),bi.getWidth());
+	    makeImageSepia(bi,bi.getHeight(),bi.getWidth());//call the method that will do all the filtering work
         
 	    actionSepia=true; //set the actionSepia to true to indicate that 
 	    repaint();
 	  
   }
-  
-  public void makeImageGreyscale(BufferedImage image,int h,int w)
+  // this method conatains algorithm for grayscale filter
+  public void makeImageGreyscale(BufferedImage image,int height,int width)
   {
-	  for(int x=0;x<w;x++)
+	  for(int x=0;x<height;x++) // outer loop to get each pixel
 	  {
-		  for(int y=0;y<w;y++)
+		  for(int y=0;y<width;y++) // inner loop to get each pixel
 		  {
-			  Color c=new Color(image.getRGB(y, x));
-			  int r=c.getRed();
-			  int g=c.getGreen();
-			  int b=c.getBlue();
-			  int a=c.getAlpha();
-			  int gr=(r+g+b)/3;
-			  Color gcolor=new Color(gr,gr,gr,a);
-			  image.setRGB(y, x, gcolor.getRGB());
+			  Color color=new Color(image.getRGB(y, x)); // get the rgb color value
+			  int red=color.getRed(); // get the red color
+			  int green=color.getGreen(); // get the green color
+			  int blue=color.getBlue();  // get the blue color
+			  int alpha=color.getAlpha(); // get the alpha channel
+			  int average_color=(red+green+blue)/3; // get the average value of the red, green and blue color values
+			  Color rgb_color=new Color(average_color,average_color,average_color,alpha); // make new rgb color value
+			  image.setRGB(y, x, rgb_color.getRGB()); //set the new rgb color value to the image
 			  
 		  }
 	  }
@@ -78,13 +80,13 @@
   {
 	  BufferedImage bi;
 	    if(actionSlided || actionResized || actionRotated || drawn){
-	     bi=bufimg;     
+	     bi=bufimg;     //store image in buffered image bi 
 	    }
 	    else{
-	     bi=BufferedImg;
+	     bi=BufferedImg;  //store image in buffered image bi 
 	    }
 	    
-	    makeImageGreyscale(bi,bi.getHeight(),bi.getWidth());
+	    makeImageGreyscale(bi,bi.getHeight(),bi.getWidth()); // call the method that has algorithm for grayscale conversion
       
 	    actionGreyscale=true; //set the actionSepia to true to indicate that 
 	    repaint();
