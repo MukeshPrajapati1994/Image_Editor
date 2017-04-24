@@ -21,6 +21,9 @@ public class Main extends JFrame implements ActionListener{
 	 JMenuItem compress; 
 	 JMenuItem resize;
 	 JMenuItem rotate;
+	 JMenuItem negative;
+	 JMenuItem msepia;
+	 JMenuItem mGreyScale;
 	 JMenuItem transparent;
 	 JMenuItem addingtext;
 	 JMenuItem cancel;
@@ -76,6 +79,22 @@ public class Main extends JFrame implements ActionListener{
 	  rotate=new JMenuItem("Image rotation");
 	  rotate.setMnemonic(KeyEvent.VK_T);
 	  rotate.addActionListener(this);
+          negative=new JMenuItem("Image negative");
+	  negative.setMnemonic(KeyEvent.VK_N);
+	  negative.addActionListener(this);
+	  
+	  blur=new JMenuItem("Blurrness");
+	  blur.setMnemonic(KeyEvent.VK_P);
+	  blur.addActionListener(this);
+
+          msepia=new JMenuItem("Sepia");
+	  msepia.setMnemonic(KeyEvent.VK_M);
+	  msepia.addActionListener(this);
+	  
+	  mGreyScale=new JMenuItem("GreyScale");
+	  mGreyScale.setMnemonic(KeyEvent.VK_W);
+	  mGreyScale.addActionListener(this);
+
 
 	  transparent=new JMenuItem("Image transparency");
 	  transparent.setMnemonic(KeyEvent.VK_T);
@@ -92,6 +111,10 @@ public class Main extends JFrame implements ActionListener{
 	  editmenu.add(rotate);
 	  editmenu.add(transparent);
 	  editmenu.add(cancel);
+          editmenu.add(blur);
+          editmenu.add(negative);
+          editmenu.add(msepia);
+	  editmenu.add(mGreyScale);
 
 	  mainmenu.add(menu);
 	  mainmenu.add(editmenu);
@@ -112,9 +135,11 @@ public class Main extends JFrame implements ActionListener{
 
 	
 	//handling events of sub-menu items on the main program interface
-	 public void actionPerformed(ActionEvent e){
+	public void actionPerformed(ActionEvent e){
 
 	  JMenuItem source = (JMenuItem)(e.getSource());
+	  
+	  
 	  if(source.getText().compareTo("Open...")==0)
 	    {
 	    setImage();
@@ -122,7 +147,48 @@ public class Main extends JFrame implements ActionListener{
 	     validate();
 	      
 	     }
-	 
+	  else if(source.getText().compareTo("Save as...")==0)
+	    {
+	    showSaveFileDialog(); 
+	      
+	     }
+	  else if(source.getText().compareTo("Save")==0)
+	    {
+	     
+	    ima.saveToFile(filename);  
+	     }
+	  else if(source.getText().compareTo("Image brightness")==0)
+	    {
+	     
+	    ImgBrighten ib=new ImgBrighten(); 
+	    if(ImgArea.imgLoad)
+	     ib.enabledSlider(true); 
+	     }
+	  else if(source.getText().compareTo("Image compression")==0)
+	    {
+	    if(ImgArea.imgLoad){
+	     ima.setActionCompressed(true);
+	     enableSaving(true);
+	     } 
+	     }
+	  
+	  else if(source.getText().compareTo("Blurrness")==0)
+	    {
+	     
+		  ImgBlurrness bf=new ImgBlurrness(); 
+		  if(ImgArea.imgLoad){
+			     bf.enabledSlider(true); 
+			     }
+		     
+	     }
+	     
+	  else if(source.getText().compareTo("Image resize")==0)
+	    {
+	     
+	    ImgResized ir=new ImgResized();
+	    if(ImgArea.imgLoad)
+	     ir.enableComponents(true);  
+	     }
 	  
 	  else if(source.getText().compareTo("Image rotation")==0)
 	    {
@@ -132,8 +198,41 @@ public class Main extends JFrame implements ActionListener{
 	     enableSaving(true);
 	     } 
 	    }
+	  else if(source.getText().compareTo("Sepia")==0)
+	  {
+	   
+	  if(ImgArea.imgLoad){
+	   ima.convertSepia();
+	   enableSaving(true);
+	   } 
+	  }
+	  
+	  else if(source.getText().compareTo("GreyScale")==0)
+	  {
+	   
+	  if(ImgArea.imgLoad){
+	   ima.convertGreyscale();
+	   enableSaving(true);
+	   } 
+	  }
+	  else if(source.getText().compareTo("Add text on image")==0)
+	    {
+	    new AddText(); 
+	    }
+	 
+	  else if(source.getText().compareTo("Image negative")==0)
+	    {
+		  
+		  if(ImgArea.imgLoad){
+			  ima.convertNegative();
+			  enableSaving(true);
+			    
+			     }
+	    }
+
 	     
-	  } 
+	  
+	 } 
 	  //The setImage method has code to open the file dialog so the user can choose
            //the file to show on the program interface    
 
