@@ -34,6 +34,9 @@ class ImgArea extends Canvas{
   boolean actionTransparent;
   boolean actionRotated;
   boolean actionDraw;
+  boolean actionNegative;
+  boolean actionGreyscale;
+  boolean actionSepia;
   boolean drawn;
   MediaTracker mt;
   static Color c;
@@ -166,6 +169,9 @@ class ImgArea extends Canvas{
 	   actionTransparent=false;
 	   actionRotated=false;
 	   actionDraw=false;
+	   actionSepia=false;
+           actionGreyscale=false;
+	   actionNegative=false;
 	   drawn=false;
 	   dirHor=false;
 	   c=null;
